@@ -100,12 +100,12 @@ npm run build
 - [LinkedIn](https://linkedin.com/in/mahammad-mostafa)
 
 📌 **Bruno:**
-- [GitHub]: (https://github.com/kambereBr)
-- [Twitter]: (https://twitter.com/kambereBr)
-- [LinkedIn]: (https://www.linkedin.com/in/bruno-kambere-399447138/)
+- [GitHub](https://github.com/kambereBr)
+- [Twitter](https://twitter.com/kambereBr)
+- [LinkedIn](https://www.linkedin.com/in/bruno-kambere-399447138/)
 
 📌 **Felipe:**
-- [GitHub]: (https://github.com/Felipe-Perez-Ferraro)
+- [GitHub](https://github.com/Felipe-Perez-Ferraro)
 
 <p align="right"><a href="#title">back to top</a></p>
 
