@@ -3,3 +3,19 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  padding: 10px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    max-width: 1000px;
+    margin: auto;
+  }
+}
