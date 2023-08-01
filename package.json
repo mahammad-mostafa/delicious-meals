@@ -1,0 +1,22 @@
+{
+  "name": "delicious-meals-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve -open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahammad-mostafa/delicious-meals-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahammad-mostafa/delicious-meals-app/issues"
+  },
+  "homepage": "https://github.com/mahammad-mostafa/delicious-meals-app/dist"
+}
