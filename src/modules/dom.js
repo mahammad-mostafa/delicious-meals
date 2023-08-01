@@ -1,3 +1,4 @@
+const popup_section = document.getElementById('popup_section');
 const close_button = document.getElementById('close_button');
 const meal_image = document.getElementById('meal_image');
 const meal_title = document.getElementById('meal_title');
@@ -16,6 +17,7 @@ const reservation_date_end = document.getElementById('reservation_date_end');
 const submit_reservation_btn = document.getElementById('submit_reservation_btn');
 
 export {
+    popup_section,
     close_button,
     meal_image,
     meal_title,

@@ -1,4 +1,5 @@
 import {
+    popup_section,
     close_button,
     meal_image,
     meal_title,
@@ -23,15 +24,33 @@ class Popup {
         this.targetType = targetType;
     }
 
-    renderPopup(data = {}, targetType, domElement) {
-        if (data && targetType !== '' && domElement instanceof Element) {
-            if (targetType === 'COMMENT') {
-                clearPopup(targetType); //call this on close
+    renderPopup(data = {}, targetType) {
+        if (data && targetType !== '') {
+            popup_section.classList.toggle('active');
+            meal_title.src = data.strMealThumb
+            meal_description.innerHTML = data.strInstructions
 
-            } else if (targetType === 'RESERVATION') {
-                clearPopup(targetType); //call this on close
-            } else {
+            if (targetType === 'COMMENT' || targetType === 'RESERVATION') {
+                sub_title_action.innerHTML = (targetType === 'COMMENT') ? 'Comments' : 'Reservations'
+                add_action_title.innerHTML = (targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation'
+                let list_item = '';
 
+                if (targetType === 'COMMENT') {
+                    data.comments.forEach(comment => {
+                        list_item += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>` 
+                    });
+                } else {
+                    data.reservations.forEach(reservation => {
+                        list_item += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`
+                    });
+                }
+
+                date_list.innerHTML = list_item;
+                close_button.addEventListener('click', () => {
+                    clearPopup(targetType);
+                })
+            }else {
+                throw new Error('Invalid target type name')
             }
         } else {
             throw new Error('Invalid data type')
@@ -48,8 +67,10 @@ class Popup {
             add_action_title.innerHTML = '';
             if(targetType === 'COMMENT') {
                 comment_form[0].reset();
+                popup_section.classList.toggle('active');
             } else if (targetType === 'RESERVATION') {
                 reservation_form[0].reset();
+                popup_section.classList.toggle('active');
             } else {
                 throw new Error('Invalid target type name')
             }
