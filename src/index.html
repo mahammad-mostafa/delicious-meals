@@ -10,12 +10,57 @@
   <body>
     <header>
       <nav>
-        <span>Logo</span>
-        <a href="#">Desert</a>
-        <a href="#">Vegan</a>
-        <a href="#">Pasta</a>
+        <ul>
+          <li><span>Logo</span></li>
+          <li><a href="#">Desert</a></li>
+          <li><a href="#">Vegan</a></li>
+          <li><a href="#">Pasta</a></li>
+        </ul>
       </nav>
     </header>
+
+    <main>
+      <section>
+        <ul>
+          <li>
+            <img alt="image" />
+            <h2>title</h2>
+            <span>5 likes</span>
+            <button type="button">likes</button>
+            <button type="button">comments</button>
+            <button type="button">reservations</button>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <div>
+          <button type="button">close</button>
+          <img alt="image" />
+          <h2>title</h2>
+          <p>description</p>
+          <h3>comments / reservations</h3>
+          <ul>
+            <li>03/11/2022 Alex: Really like</li>
+          </ul>
+          <h3>Add comment / Add reservation</h3>
+          <form>
+            <input type="text" name="username" placeholder="your name" required />
+            <textarea name="comment" placeholder="your insights" required></textarea>
+            <button type="submit">Comment</button>
+          </form>
+          <form>
+            <input type="text" name="username" placeholder="your name" required />
+            <input type="date" name="date_start" placeholder="start date" required />
+            <input type="date" name="date_end" placeholder="end date" required />
+            <button type="submit">Reserve</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Created by Microverse under CC license</p>
+    </footer>
   </body>
 
 </html>
