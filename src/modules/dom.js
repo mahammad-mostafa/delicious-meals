@@ -13,6 +13,7 @@ const submit_comment_btn = document.getElementById('submit_comment_btn');
 const reservation_username = document.getElementById('reservation_username');
 const reservation_date_start = document.getElementById('reservation_date_start');
 const reservation_date_end = document.getElementById('reservation_date_end');
+const submit_reservation_btn = document.getElementById('submit_reservation_btn');
 
 export {
     close_button,
@@ -29,5 +30,6 @@ export {
     submit_comment_btn,
     reservation_username,
     reservation_date_start,
-    reservation_date_end
+    reservation_date_end,
+    submit_reservation_btn
 };
