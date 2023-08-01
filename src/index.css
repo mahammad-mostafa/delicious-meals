@@ -8,9 +8,10 @@ body {
   padding: 10px;
 }
 
-nav {
+ul {
   display: flex;
   gap: 20px;
+  list-style: none;
 }
 
 @media only screen and (min-width: 768px) {
