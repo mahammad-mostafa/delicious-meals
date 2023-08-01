@@ -18,5 +18,16 @@
   "bugs": {
     "url": "https://github.com/mahammad-mostafa/delicious-meals-app/issues"
   },
-  "homepage": "https://github.com/mahammad-mostafa/delicious-meals-app/dist"
+  "homepage": "https://github.com/mahammad-mostafa/delicious-meals-app/dist",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.28.0",
+    "hint": "^7.1.10",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^21.0.0",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "^3.21.0"
+  }
 }
