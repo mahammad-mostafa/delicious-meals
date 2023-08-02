@@ -32,27 +32,28 @@
           </li>
         </ul>
       </section>
-      <section>
+      <section class="popup_section" id="popup_Section">
         <div>
-          <button type="button">close</button>
-          <img alt="image" />
-          <h2>title</h2>
-          <p>description</p>
-          <h3>comments / reservations</h3>
-          <ul>
+          <button type="button" id="close_button">close</button>
+          <img alt="image" id="meal_image"/>
+          <h2 id="meal_title">title</h2>
+          <p id="meal_description">description</p>
+          <h3 id="sub_title_action">comments / reservations</h3>
+          <input type="hidden" id="item_id" name="item_id">
+          <ul id="date_list">
             <li>03/11/2022 Alex: Really like</li>
           </ul>
-          <h3>Add comment / Add reservation</h3>
-          <form>
-            <input type="text" name="username" placeholder="your name" required />
-            <textarea name="comment" placeholder="your insights" required></textarea>
-            <button type="submit">Comment</button>
+          <h3 id="add_action_title">Add comment / Add reservation</h3>
+          <form id="comment_form" name="comment_form">
+            <input type="text" name="username" id="comment_username" class="form_field" placeholder="your name" required />
+            <textarea name="comment" id="comment_area" class="form_field" placeholder="your insights" required></textarea>
+            <button type="submit" id="submit_comment_btn">Comment</button>
           </form>
-          <form>
-            <input type="text" name="username" placeholder="your name" required />
-            <input type="date" name="date_start" placeholder="start date" required />
-            <input type="date" name="date_end" placeholder="end date" required />
-            <button type="submit">Reserve</button>
+          <form id="reservation_form" name="reservation_form">
+            <input type="text" name="username" id="reservation_username" class="form_field" placeholder="your name" required />
+            <input type="date" name="date_start" id="reservation_date_start" class="form_field" placeholder="start date" required />
+            <input type="date" name="date_end" id="reservation_date_end" class="form_field" placeholder="end date" required />
+            <button type="submit" id="submit_reservation_btn">Reserve</button>
           </form>
         </div>
       </section>
@@ -62,5 +63,4 @@
       <p>Created by Microverse under CC license</p>
     </footer>
   </body>
-
 </html>
