@@ -15,6 +15,7 @@ const reservation_username = document.getElementById('reservation_username');
 const reservation_date_start = document.getElementById('reservation_date_start');
 const reservation_date_end = document.getElementById('reservation_date_end');
 const submit_reservation_btn = document.getElementById('submit_reservation_btn');
+const item_id = document.getElementById('item_id');
 
 export {
     popup_section,
@@ -33,5 +34,6 @@ export {
     reservation_username,
     reservation_date_start,
     reservation_date_end,
-    submit_reservation_btn
+    submit_reservation_btn,
+    item_id
 };
