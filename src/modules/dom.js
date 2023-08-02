@@ -1,5 +1,5 @@
 class Dom {
-  constructor(){
+  constructor() {
     this.popup = document.getElementById('popup');
     this.popupBlock = document.getElementById('popup-block');
     this.popupClose = document.getElementById('popup-close');
