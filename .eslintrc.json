@@ -16,10 +16,12 @@
     "eol-last": "off",
     "import/extensions": [ 1, {
       "js": "always", "json": "always"
-    }]
+    }],
+    "import/no-cycle": [2, { "ignoreExternal": true }]
   },
   "ignorePatterns": [
     "dist/",
-    "build/"
+    "build/",
+    "modules/"
   ]
 }
