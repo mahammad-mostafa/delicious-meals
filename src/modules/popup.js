@@ -21,7 +21,6 @@ class Popup {
 
   renderInvolvement(data) {
     let listItem = '';
-    this.renderDetails(data);
     this.dom.popupList.textContent = ''; // clear all content before rendering
     if (data.targetType === 'COMMENT') {
       data.involvementList.forEach((comment) => {
@@ -77,6 +76,7 @@ class Popup {
     if (data) {
       this.dom.popup.classList.toggle('active'); // active : when popup is visible
       if (data.targetType === 'comments' || data.targetType === 'reservations') {
+        this.renderDetails(data);
         this.renderInvolvement(data);
         this.manageFormVisibility(data.targetType);
         this.handleFormSubmission(data.targetType, data.itemDetails.item_id);
