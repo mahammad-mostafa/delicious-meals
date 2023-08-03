@@ -5,16 +5,8 @@ export default class {
     this.dom = new Dom();
   }
 
-  clearPopup = (targetType) => {
+  clearFormFields = (targetType) => {
     if (targetType !== '') {
-      this.dom.popupImage.src = '';
-      this.dom.popupTitle.textContent = '';
-      this.dom.popupListTitle.textContent = '';
-      this.dom.popupDescription.textContent = '';
-      this.dom.popupList.textContent = '';
-      this.dom.popupFormTitle.textContent = '';
-      this.dom.popup.classList.toggle('active');
-
       if (targetType === 'COMMENT') {
         this.dom.popupFormComment[0].reset();
       } else if (targetType === 'RESERVATION') {
@@ -36,5 +28,15 @@ export default class {
       }
     });
     return isFilled;
+  }
+
+  manageFormVisibility(targetType) {
+    if (targetType === 'COMMENT') {
+      this.dom.popupFormComment.classList.add('visible'); // visible : popup-form-comment is displayed
+      this.dom.popupFormReservation.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+    } else {
+      this.dom.popupFormReservation.classList.add('visible'); // visible : reservation_form is displayed
+      this.dom.popupFormComment.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+    }
   }
 }
