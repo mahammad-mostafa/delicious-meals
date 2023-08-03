@@ -1,56 +1,64 @@
-import {
-  popupSection,
-  closeButton,
-  mealImage,
-  mealTitle,
-  mealDescription,
-  subTitleAction,
-  dateList,
-  addActionTitle,
-  commentForm,
-  reservationForm,
-  commentUsername,
-  commentArea,
-  reservationUsername,
-  reservationDateStart,
-  reservationDateEnd,
-  itemId,
-} from './dom.js';
-
-import Reservation from './reservations.js';
-
-// Initialize the constant
-const newReservation = new Reservation();
+import Dom from './dom.js';
+import FormManagement from './formManagement.js';
+import Reservations from './reservations.js';
 
 /* eslint-disable no-unused-vars */
-class Popup {
-  constructor(targetType) {
-    this.targetType = targetType;
+export default class Popup {
+  constructor(targetType, data) {
+    this.renderPopup(data, targetType);
+    this.dom = new Dom();
+    this.formManagement = new FormManagement();
+    this.reservations = new Reservations();
   }
 
-  renderPopup(data = {}) {
-    if (data && this.targetType !== '') {
-      popupSection.classList.toggle('active'); // active : when popup is visible
-      mealTitle.src = data.strMealThumb;
-      mealDescription.innerHTML = data.strInstructions;
+  renderDetails(data, targetType) {
+    this.dom.popupImage.src = data.itemDetails.strMealThumb;
+    this.dom.popupTitle.textContent = data.itemDetails.strMeal;
+    this.dom.popupDescription.textContent = data.itemDetails.strInstructions;
+    this.dom.popupListTitle.textContent = (targetType === 'COMMENT') ? 'Comments' : 'Reservations';
+    this.dom.popupFormTitle.textContent = (targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation';
+  }
 
-      if (this.targetType === 'COMMENT' || this.targetType === 'RESERVATION') {
-        subTitleAction.innerHTML = (this.targetType === 'COMMENT') ? 'Comments' : 'Reservations';
-        addActionTitle.innerHTML = (this.targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation';
-        let listItem = '';
+  renderInvolvement(data, targetType) {
+    let listItem = '';
+    this.dom.popupList.textContent = ''; // clear all content before rendering
+    if (targetType === 'COMMENT') {
+      data.involvementList.forEach((comment) => {
+        listItem += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>`;
+      });
+    } else {
+      data.involvementList.forEach((reservation) => {
+        listItem += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`;
+      });
+    }
+    this.dom.popupList.textContent = listItem;
+  }
 
-        if (this.targetType === 'COMMENT') {
-          data.comments.forEach((comment) => {
-            listItem += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>`;
-          });
-          commentForm.classList.toggle('visible'); // visible : comment_form is displayed
-          commentForm.addEventListener('submit', (e) => {
+  manageFormVisibility(targetType) {
+    if (targetType === 'COMMENT') {
+      this.dom.popupFormComment.classList.add('visible'); // visible : popup-form-comment is displayed
+      this.dom.popupFormReservation.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+    } else {
+      this.dom.popupFormReservation.classList.add('visible'); // visible : reservation_form is displayed
+      this.dom.popupFormComment.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+    }
+  }
+
+  renderPopup(data = {}, targetType) {
+    if (data && targetType !== '') {
+      this.dom.popup.classList.toggle('active'); // active : when popup is visible
+      if (targetType === 'COMMENT' || targetType === 'RESERVATION') {
+        this.renderDetails(data, targetType);
+        this.renderInvolvement(data, targetType);
+        this.manageFormVisibility(targetType);
+        if (targetType === 'COMMENT') {
+          this.dom.popupFormComment.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (this.checkFilledForm('comment_form')) {
+            if (this.checkFilledForm('popup-form-comment')) {
               const commentObject = {
-                item_id: itemId.value,
-                username: commentUsername.value,
-                comment: commentArea.value,
+                item_id: data.itemDetails.item_id,
+                username: this.dom.popupFormComment.elements.username.value,
+                comment: this.dom.popupFormComment.elements.comment.value,
               };
               //* ** call here postData method to post comment through API ***
             } else {
@@ -58,30 +66,13 @@ class Popup {
             }
           });
         } else {
-          data.reservations.forEach((reservation) => {
-            listItem += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`;
-          });
-          reservationForm.classList.toggle('visible'); // visible : reservation_form is displayed
-          reservationForm.addEventListener('submit', (e) => {
+          this.dom.popupFormReservation.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (this.checkFilledForm('reservation_form')) {
-              const reservationObject = {
-                item_id: itemId.value,
-                username: reservationUsername.value,
-                date_start: reservationDateStart.value,
-                date_end: reservationDateEnd.value,
-              };
-              //* ** call here postData method to post reservation through API ***
-              newReservation.postReservation(reservationObject); // Passed the reservation object as a parameter
-            } else {
-              // please fill all fields message
-            }
+            this.reservations.postReservationMethod();
           });
         }
-
-        dateList.innerHTML = listItem;
-        closeButton.addEventListener('click', () => {
-          this.clearPopup(this.targetType);
+        this.dom.popupClose.addEventListener('click', () => {
+          this.formManagement.clearPopup(targetType);
         });
       } else {
         throw new Error('Invalid target type name');
@@ -89,38 +80,5 @@ class Popup {
     } else {
       throw new Error('Invalid data type');
     }
-  }
-
-  clearPopup() {
-    if (this.targetType !== '') {
-      mealImage.src = '';
-      mealTitle.innerHTML = '';
-      mealDescription.innerHTML = '';
-      subTitleAction.innerHTML = '';
-      dateList.innerHTML = '';
-      addActionTitle.innerHTML = '';
-      if (this.targetType === 'COMMENT') {
-        commentForm[0].reset();
-        popupSection.classList.toggle('active');
-      } else if (this.targetType === 'RESERVATION') {
-        reservationForm[0].reset();
-        popupSection.classList.toggle('active');
-      } else {
-        throw new Error('Invalid target type name');
-      }
-    }
-  }
-
-  /* eslint-disable no-undef */
-  /* eslint-disable class-methods-use-this */
-  checkFilledForm(formName) {
-    const inputs = document.forms[formName].querySelectorAll('.form_field');
-    let isFilled = true;
-    inputs.forEach(element, () => {
-      if (element.value === '') {
-        isFilled = false;
-      }
-    });
-    return isFilled;
   }
 }
