@@ -1,3 +1,5 @@
+import Counter from './items.js';
+
 export default class {
   constructor(menu, list) {
     this.menu = menu;
@@ -18,7 +20,6 @@ export default class {
   }
 
   displayList = ({ category, listItems, totalLikes }) => {
-    this.countList(category, listItems.length);
     this.likes = totalLikes;
     const fragment = new DocumentFragment();
     listItems.forEach((item) => {
@@ -35,9 +36,10 @@ export default class {
     });
     this.list.innerHTML = '';
     this.list.appendChild(fragment);
+    this.displayCounter(category, Counter(this.list));
   }
 
-  countList = (selected, count) => {
+  displayCounter = (selected, count) => {
     this.categories.forEach((category, index) => {
       if (this.menu.children[index].hash === `#${selected}`) {
         this.menu.children[index].textContent = `${category} (${count})`;
