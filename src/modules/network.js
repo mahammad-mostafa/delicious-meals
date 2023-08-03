@@ -39,6 +39,9 @@ export default class {
         this.list.updateLikes(item);
         break;
       case 'getComments':
+        if (typeof responses[1] === 'object' && responses[1] !== null) {
+          responses[1] = [];
+        }
         this.popup.renderPopup({ targetType: 'comments', itemDetails: responses[0], involvementList: responses[1] });
         break;
       case 'postComment':
@@ -48,6 +51,9 @@ export default class {
         this.popup.renderInvolvement({ targetType: 'comments', involvementList: responses[0] });
         break;
       case 'getReservations':
+        if (typeof responses[1] === 'object' && responses[1] !== null) {
+          responses[1] = [];
+        }
         this.popup.renderPopup({ targetType: 'reservations', itemDetails: responses[0], involvementList: responses[1] });
         break;
       case 'postReservation':

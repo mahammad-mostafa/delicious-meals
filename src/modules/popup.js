@@ -8,26 +8,24 @@ export default class Popup {
   }
 
   countInvolvementElements() {
-    return this.dom.popupList.childElementCount();
+    return this.dom.popupList.childElementCount;
   }
 
-  renderDetails(data) {
-    this.dom.popupImage.src = data.itemDetails.strMealThumb;
-    this.dom.popupTitle.textContent = data.itemDetails.strMeal;
-    this.dom.popupDescription.textContent = data.itemDetails.strInstructions;
-    this.dom.popupListTitle.textContent = (data.targetType === 'comments') ? `Comments ('${this.countInvolvementElements()}')` : `Reservations ('${this.countInvolvementElements()}')`;
-    this.dom.popupFormTitle.textContent = (data.targetType === 'comments') ? 'Add Comment' : 'Add Reservation';
+  renderDetails({strMealThumb, strMeal, strInstructions}) {
+    this.dom.popupImage.src = strMealThumb;
+    this.dom.popupTitle.textContent = strMeal;
+    this.dom.popupDescription.textContent = strInstructions;
   }
 
-  renderInvolvement(data) {
+  renderInvolvement(targetType, involvementList) {
     let listItem = '';
     this.dom.popupList.textContent = ''; // clear all content before rendering
-    if (data.targetType === 'COMMENT') {
-      data.involvementList.forEach((comment) => {
+    if (targetType === 'COMMENT') {
+      involvementList.forEach((comment) => {
         listItem += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>`;
       });
     } else {
-      data.involvementList.forEach((reservation) => {
+      involvementList.forEach((reservation) => {
         listItem += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`;
       });
     }
@@ -42,6 +40,9 @@ export default class Popup {
       this.dom.popupFormReservation.classList.add('popup-visible'); // popup-visible : reservation_form is displayed
       this.dom.popupFormComment.classList.remove('popup-visible'); // remove popup-visible : popup-form-comment is hidden
     }
+    
+    this.dom.popupListTitle.textContent = (targetType === 'comments') ? `Comments ('${this.countInvolvementElements()}')` : `Reservations ('${this.countInvolvementElements()}')`;
+    this.dom.popupFormTitle.textContent = (targetType === 'comments') ? 'Add Comment' : 'Add Reservation';
   }
 
   handleFormSubmission(targetType, itemId) {
@@ -72,22 +73,18 @@ export default class Popup {
     });
   }
 
-  renderPopup(data) {
-    if (data) {
-      this.dom.popup.classList.toggle('popup-visible'); // popup-visible : when popup is visible
-      if (data.targetType === 'comments' || data.targetType === 'reservations') {
-        this.renderDetails(data);
-        this.renderInvolvement(data);
-        this.manageFormVisibility(data.targetType);
-        this.handleFormSubmission(data.targetType, data.itemDetails.item_id);
-        this.dom.popupClose.addEventListener('click', () => {
-          this.clearPopup(data.targetType);
-        });
-      } else {
-        throw new Error('Invalid target type name');
-      }
+  renderPopup({targetType, itemDetails, involvementList}) {
+    this.dom.popup.classList.toggle('popup-visible'); // popup-visible : when popup is visible
+    if (targetType === 'comments' || targetType === 'reservations') {
+      this.renderDetails(itemDetails.meals[0]);
+      this.renderInvolvement(targetType, involvementList);
+      this.manageFormVisibility(targetType);
+      this.handleFormSubmission(targetType, itemDetails.meals[0].mealId);
+      this.dom.popupClose.addEventListener('click', () => {
+        this.clearPopup(targetType);
+      });
     } else {
-      throw new Error('Invalid data type');
+      throw new Error('Invalid target type name');
     }
   }
 
@@ -99,12 +96,12 @@ export default class Popup {
       this.dom.popupDescription.textContent = '';
       this.dom.popupList.textContent = '';
       this.dom.popupFormTitle.textContent = '';
-      this.dom.popup.classList.toggle('popup-visible');
+      this.dom.popup.classList.remove('popup-visible');
 
       if (targetType === 'comments') {
-        this.dom.popupFormComment[0].reset();
+        this.dom.popupFormComment.reset();
       } else if (targetType === 'reservations') {
-        this.dom.popupFormReservation[0].reset();
+        this.dom.popupFormReservation.reset();
       } else {
         throw new Error('Invalid target type name');
       }

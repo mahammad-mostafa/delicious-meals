@@ -62,7 +62,7 @@ nav {
 }
 
 .popup-visible {
-  display: block;
+  display: block !important;
 }
 
 .form-visible {
