@@ -29,7 +29,7 @@ nav {
   grid-template-columns: 1fr;
 }
 
-#list-block img {
+.list-image {
   width: 100%;
 }
 
@@ -55,7 +55,7 @@ nav {
   align-self: flex-end;
 }
 
-#popup-block form {
+.popup-form {
   display: none;
   gap: 10px;
   flex-direction: column;
