@@ -1,37 +1,25 @@
-import { itemId } from "./dom";
+import FormManagement from './formManagement';
+import Dom from './dom';
+import Network from './network.js';
 
-export default class Reservation {
+export default class {
   constructor() {
-    this.apiKey = 'PcvY2DNBAF4NwUCzWGCB',
-    this.url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/'
+    this.formManagement = new FormManagement();
+    this.dom = new Dom();
+    this.network = new Network();
   }
 
-  // Method to post the reservation object created in popup.js
-  postReservation = async (reservationObject) => {
-    const response = await fetch(`${this.url}${this.apiKey}/reservations/`, {
-      method: 'POST',
-      body: JSON.stringify({
-        item_id: reservationObject.item_id,
-        username: reservationObject.username,
-        date_start: reservationObject.date_start,
-        date_end: reservationObject.date_end,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-    const data = response.json();
-    return data;
-  }
-
-  // Method to get the data from the reservation API
-  getReservationData = async () => {
-    try {
-      const response = await fetch(`${this.url}${this.apiKey}/reservations?item_id=${itemId}`);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw new Error(error);
+  postReservationMethod = () => {
+    if (this.formManagement.checkFilledForm('popup-form-reservation')) {
+      const reservationObject = {
+        item_id: data.itemDetails.item_id,
+        username: this.dom.popupFormReservation.elements.username.value,
+        date_start: this.dom.popupFormReservation.elements.date_start.value,
+        date_end: this.dom.popupFormReservation.elements.date_end.value,
+      };
+      this.network.postReservation(reservationObject.item_id, reservationObject.username, reservationObject.date_start, reservationObject.date_end);
+    } else {
+      throw new Error('Invalid reservation Post');
     }
   }
 }
