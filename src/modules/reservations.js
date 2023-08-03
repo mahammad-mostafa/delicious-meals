@@ -1,12 +1,11 @@
 import FormManagement from './formManagement';
 import Dom from './dom';
-import Network from './network.js';
 
 export default class {
-  constructor() {
+  constructor(network) {
     this.formManagement = new FormManagement();
     this.dom = new Dom();
-    this.network = new Network();
+    this.network = network;
   }
 
   postReservationMethod = () => {
