@@ -25,12 +25,12 @@ export default class {
     listItems.forEach((item) => {
       const element = document.createElement('li');
       element.id = `item${item.idMeal}`;
-      let html = `<img src="${item.strMealThumb}" alt="${item.strMeal}" />`;
-      html += `<h2>${item.strMeal}</h2>`;
-      html += `<span>${this.countLikes(item.idMeal)} likes</span>`;
-      html += '<button id="likes" type="button">likes</button>';
-      html += '<button id="comments" type="button">comments</button>';
-      html += '<button id="reservations" type="button">reservations</button>';
+      let html = `<img class="list-image" src="${item.strMealThumb}" alt="${item.strMeal}" />`;
+      html += `<h2 class="list-title">${item.strMeal}</h2>`;
+      html += `<span class="list-likes">${this.countLikes(item.idMeal)} likes</span>`;
+      html += '<button data-type="likes" type="button">likes</button>';
+      html += '<button data-type="comments" type="button">comments</button>';
+      html += '<button data-type="reservations" type="button">reservations</button>';
       element.innerHTML = html;
       fragment.appendChild(element);
     });
