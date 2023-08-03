@@ -7,7 +7,6 @@ class Popup {
     this.network = network;
   }
 
-
   countInvolvementElements() {
     return this.dom.popupList.childElementCount();
   }
@@ -33,7 +32,7 @@ class Popup {
         listItem += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`;
       });
     }
-    this.dom.popupList.textContent = listItem;
+    this.dom.popupList.innerHTML = listItem;
   }
 
   manageFormVisibility(targetType) {
@@ -48,6 +47,7 @@ class Popup {
 
   handleFormSubmission(targetType, itemId) {
     const formName = (targetType === 'comments') ? 'popup-form-comment' : 'popup-form-reservation';
+    const formElement = (targetType === 'comments') ? this.dom.popupFormComment : this.dom.popupFormReservation;
     formElement.addEventListener('submit', (e) => {
       e.preventDefault();
       if (this.checkFilledForm(formName)) {
@@ -58,7 +58,7 @@ class Popup {
             comment: this.dom.popupFormComment.elements.comment.value,
           };
           //* ** call here postData method to post comment through API ***
-        } else if (formName === 'popup-form-reservation'){
+        } else if (formName === 'popup-form-reservation') {
           const reservationObject = {
             item_id: itemId,
             username: this.dom.popupFormReservation.elements.username.value,
@@ -77,14 +77,12 @@ class Popup {
     if (data) {
       this.dom.popup.classList.toggle('active'); // active : when popup is visible
       if (data.targetType === 'comments' || data.targetType === 'reservations') {
-
         this.renderInvolvement(data);
         this.manageFormVisibility(data.targetType);
         this.handleFormSubmission(data.targetType, data.itemDetails.item_id);
         this.dom.popupClose.addEventListener('click', () => {
           this.clearPopup(data.targetType);
         });
-        
       } else {
         throw new Error('Invalid target type name');
       }
