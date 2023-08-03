@@ -1,6 +1,7 @@
 import Dom from './dom.js';
 import FormManagement from './formManagement.js';
 import Reservations from './reservations.js';
+import Comments from './comments.js';
 
 /* eslint-disable no-unused-vars */
 export default class Popup {
@@ -8,7 +9,6 @@ export default class Popup {
     this.renderPopup(data, targetType);
     this.dom = new Dom();
     this.formManagement = new FormManagement();
-    this.reservations = new Reservations();
   }
 
   renderDetails(data, targetType) {
@@ -34,51 +34,66 @@ export default class Popup {
     this.dom.popupList.textContent = listItem;
   }
 
-  manageFormVisibility(targetType) {
-    if (targetType === 'COMMENT') {
-      this.dom.popupFormComment.classList.add('visible'); // visible : popup-form-comment is displayed
-      this.dom.popupFormReservation.classList.remove('visible'); // remove visible : popup-form-comment is hidden
-    } else {
-      this.dom.popupFormReservation.classList.add('visible'); // visible : reservation_form is displayed
-      this.dom.popupFormComment.classList.remove('visible'); // remove visible : popup-form-comment is hidden
-    }
-  }
-
   renderPopup(data = {}, targetType) {
     if (data && targetType !== '') {
       this.dom.popup.classList.toggle('active'); // active : when popup is visible
       if (targetType === 'COMMENT' || targetType === 'RESERVATION') {
         this.renderDetails(data, targetType);
         this.renderInvolvement(data, targetType);
-        this.manageFormVisibility(targetType);
+        this.formManagement.manageFormVisibility(targetType);
         if (targetType === 'COMMENT') {
           this.dom.popupFormComment.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (this.checkFilledForm('popup-form-comment')) {
-              const commentObject = {
-                item_id: data.itemDetails.item_id,
-                username: this.dom.popupFormComment.elements.username.value,
-                comment: this.dom.popupFormComment.elements.comment.value,
-              };
-              //* ** call here postData method to post comment through API ***
+            if (this.formManagement.checkFilledForm('popup-form-comment')) {
+              const comment = new Comments(
+                this.network,
+                itemId,
+                this.dom.popupFormReservation.elements.username.value, 
+                this.dom.popupFormReservation.elements.comment.value
+              );
+              comment.postComment();
             } else {
-              // please fill all fields message
+              throw new Error('Invalid reservation Post');
             }
           });
         } else {
           this.dom.popupFormReservation.addEventListener('submit', (e) => {
             e.preventDefault();
-            this.reservations.postReservationMethod();
+            if (this.formManagement.checkFilledForm('popup-form-reservation')) {
+              const reservation = new Reservations(
+                this.network,
+                itemId, 
+                this.dom.popupFormReservation.elements.username.value, 
+                this.dom.popupFormReservation.elements.date_start.value, 
+                this.dom.popupFormReservation.elements.date_end.value
+                );
+              reservation.postReservationMethod();
+            } else {
+              throw new Error('Invalid reservation post request');
+            }
           });
         }
         this.dom.popupClose.addEventListener('click', () => {
-          this.formManagement.clearPopup(targetType);
+          this.clearPopup(targetType);
+          this.formManagement.clearFormFields(targetType);  
         });
       } else {
         throw new Error('Invalid target type name');
       }
     } else {
       throw new Error('Invalid data type');
+    }
+  }
+  
+  clearPopup = (targetType) => {
+    if (targetType !== '') {
+      this.dom.popupImage.src = '';
+      this.dom.popupTitle.textContent = '';
+      this.dom.popupListTitle.textContent = '';
+      this.dom.popupDescription.textContent = '';
+      this.dom.popupList.textContent = '';
+      this.dom.popupFormTitle.textContent = '';
+      this.dom.popup.classList.toggle('active');
     }
   }
 }
