@@ -4,21 +4,21 @@ import Dom from './dom.js';
 class Popup {
   constructor(targetType, data) {
     this.dom = new Dom();
-    this.renderPopup(data, targetType);
   }
 
-  renderDetails(data, targetType) {
+  renderDetails(data) {
     this.dom.popupImage.src = data.itemDetails.strMealThumb;
     this.dom.popupTitle.textContent = data.itemDetails.strMeal;
     this.dom.popupDescription.textContent = data.itemDetails.strInstructions;
-    this.dom.popupListTitle.textContent = (targetType === 'COMMENT') ? 'Comments' : 'Reservations';
-    this.dom.popupFormTitle.textContent = (targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation';
+    this.dom.popupListTitle.textContent = (data.targetType === 'COMMENT') ? 'Comments' : 'Reservations';
+    this.dom.popupFormTitle.textContent = (data.targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation';
   }
 
-  renderInvolvement(data, targetType) {
+  renderInvolvement(data) {
     let listItem = '';
+    this.renderDetails(data);
     this.dom.popupList.textContent = ''; // clear all content before rendering
-    if (targetType === 'COMMENT') {
+    if (data.targetType === 'COMMENT') {
       data.involvementList.forEach((comment) => {
         listItem += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>`;
       });
@@ -40,14 +40,13 @@ class Popup {
     }
   }
 
-  renderPopup(data = {}, targetType) {
-    if (data && targetType !== '') {
+  renderPopup(data) {
+    if (data) {
       this.dom.popup.classList.toggle('active'); // active : when popup is visible
-      if (targetType === 'COMMENT' || targetType === 'RESERVATION') {
-        this.renderDetails(data, targetType);
-        this.renderInvolvement(data, targetType);
-        this.manageFormVisibility(targetType);
-        if (targetType === 'COMMENT') {
+      if (data.targetType === 'COMMENT' || data.targetType === 'RESERVATION') {
+        this.renderInvolvement(data);
+        this.manageFormVisibility(data.targetType);
+        if (data.targetType === 'COMMENT') {
           this.dom.popupFormComment.addEventListener('submit', (e) => {
             e.preventDefault();
             if (this.checkFilledForm('popup-form-comment')) {
@@ -55,8 +54,8 @@ class Popup {
                 item_id: data.itemDetails.item_id,
                 username: this.dom.popupFormComment.elements.username.value,
                 comment: this.dom.popupFormComment.elements.comment.value,
+                //* ** call here postData method to post comment through API ***
               };
-              //* ** call here postData method to post comment through API ***
             } else {
               // please fill all fields message
             }
@@ -78,7 +77,7 @@ class Popup {
           });
         }
         this.dom.popupClose.addEventListener('click', () => {
-          this.clearPopup(targetType);
+          this.clearPopup(data.targetType);
         });
       } else {
         throw new Error('Invalid target type name');
