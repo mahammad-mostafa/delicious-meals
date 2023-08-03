@@ -36,11 +36,11 @@ class Popup {
 
   manageFormVisibility(targetType) {
     if (targetType === 'COMMENT') {
-      this.dom.popupFormComment.classList.add('visible'); // visible : popup-form-comment is displayed
-      this.dom.popupFormReservation.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+      this.dom.popupFormComment.classList.add('popup-visible'); // popup-visible : popup-form-comment is displayed
+      this.dom.popupFormReservation.classList.remove('popup-visible'); // remove popup-visible : popup-form-comment is hidden
     } else {
-      this.dom.popupFormReservation.classList.add('visible'); // visible : reservation_form is displayed
-      this.dom.popupFormComment.classList.remove('visible'); // remove visible : popup-form-comment is hidden
+      this.dom.popupFormReservation.classList.add('popup-visible'); // popup-visible : reservation_form is displayed
+      this.dom.popupFormComment.classList.remove('popup-visible'); // remove popup-visible : popup-form-comment is hidden
     }
   }
 
