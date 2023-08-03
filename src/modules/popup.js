@@ -74,7 +74,7 @@ class Popup {
 
   renderPopup(data) {
     if (data) {
-      this.dom.popup.classList.toggle('active'); // active : when popup is visible
+      this.dom.popup.classList.toggle('popup-visible'); // popup-visible : when popup is visible
       if (data.targetType === 'comments' || data.targetType === 'reservations') {
         this.renderDetails(data);
         this.renderInvolvement(data);
@@ -99,7 +99,7 @@ class Popup {
       this.dom.popupDescription.textContent = '';
       this.dom.popupList.textContent = '';
       this.dom.popupFormTitle.textContent = '';
-      this.dom.popup.classList.toggle('active');
+      this.dom.popup.classList.toggle('popup-visible');
 
       if (targetType === 'comments') {
         this.dom.popupFormComment[0].reset();
