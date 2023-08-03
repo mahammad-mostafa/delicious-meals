@@ -2,56 +2,41 @@
 <html lang="en">
 
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Delicious Meals</title>
   </head>
 
   <body>
     <header>
       <nav>
-        <ul>
-          <li><span>Logo</span></li>
-          <li><a href="#">Desert</a></li>
-          <li><a href="#">Vegan</a></li>
-          <li><a href="#">Pasta</a></li>
-        </ul>
+        <h1 id="logo">Delicious Meals</h1>
+        <ul id="menu"></ul>
       </nav>
     </header>
 
     <main>
-      <section>
-        <ul>
-          <li>
-            <img alt="image" />
-            <h2>title</h2>
-            <span>5 likes</span>
-            <button type="button">likes</button>
-            <button type="button">comments</button>
-            <button type="button">reservations</button>
-          </li>
-        </ul>
+      <section id="list">
+        <ul id="list-block"></ul>
       </section>
-     <section id="popup">
+      <section id="popup">
         <div id="popup-block">
-          <button id="popup-close" type="button">close</button>
+          <button id="popup-close" type="button">X</button>
           <img id="popup-image" alt="image" />
-          <h2 id="popup-title">title</h2>
-          <p id="popup-description">description</p>
-          <h3 id="popup-list-title">comments / reservations</h3>
-          <ul id="popup-list">
-            <li>03/11/2022 Alex: Really like</li>
-          </ul>
-          <h3 id="popup-form-title">Add comment / Add reservation</h3>
-          <form id="popup-form-comment" name="popup-form-comment">
-            <input type="text" name="username" class="form-field" placeholder="your name" required />
-            <textarea name="comment" class="form-field" placeholder="your insights" required></textarea>
+          <h2 id="popup-title"></h2>
+          <p id="popup-description"></p>
+          <h3 id="popup-list-title"></h3>
+          <ul id="popup-list"></ul>
+          <h3 id="popup-form-title"></h3>
+          <form id="popup-form-comment" class="popup-form">
+            <input type="text" name="username" placeholder="your name" required />
+            <textarea name="comment" placeholder="your insights" required></textarea>
             <button type="submit">Comment</button>
           </form>
-          <form id="popup-form-reservation" name="popup-form-reservation">
-            <input type="text" name="username" class="form-field" placeholder="your name" required />
-            <input type="date" name="date_start" class="form-field" placeholder="start date" required />
-            <input type="date" name="date_end" class="form-field" placeholder="end date" required />
+          <form id="popup-form-reservation" class="popup-form">
+            <input type="text" name="username" placeholder="your name" required />
+            <input type="date" name="date_start" placeholder="start date" required />
+            <input type="date" name="date_end" placeholder="end date" required />
             <button type="submit">Reserve</button>
           </form>
         </div>
