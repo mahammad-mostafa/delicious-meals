@@ -7,7 +7,7 @@ export default class {
     this.involvement = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
     this.appId = '7f1BuLlilpO9a0A6DJ97';
     this.list = new List(menuElement, listElement);
-    this.popup = new Popup();
+    this.popup = new Popup(this);
   }
 
   buildHeaders = (method, body) => ({ method, body: JSON.stringify(body), headers: { 'content-type': 'application/json' } });
@@ -39,22 +39,22 @@ export default class {
         this.list.updateLikes(item);
         break;
       case 'getComments':
-        this.popup.renderPopup({ popupType: 'comments', itemDetails: responses[0], involvementList: responses[1] });
+        this.popup.renderPopup({ targetType: 'comments', itemDetails: responses[0], involvementList: responses[1] });
         break;
       case 'postComment':
         this.updateComments(item);
         break;
       case 'updateComments':
-        this.popup.renderInvolvement({ popupType: 'comments', involvementList: responses[0] });
+        this.popup.renderInvolvement({ targetType: 'comments', involvementList: responses[0] });
         break;
       case 'getReservations':
-        this.popup.renderPopup({ popupType: 'reservations', itemDetails: responses[0], involvementList: responses[1] });
+        this.popup.renderPopup({ targetType: 'reservations', itemDetails: responses[0], involvementList: responses[1] });
         break;
       case 'postReservation':
         this.updateReservations(item);
         break;
       case 'updateReservation':
-        this.popup.renderInvolvement({ popupType: 'reservations', involvementList: responses[0] });
+        this.popup.renderInvolvement({ targetType: 'reservations', involvementList: responses[0] });
         break;
       default:
     }
@@ -79,9 +79,12 @@ export default class {
     this.sendRequest('getComments', [this.promiseItem(itemId), promise]);
   }
 
-  postComment = ({ itemId, username, comment }) => {
-    const promise = this.buildRequest(`${this.involvement}${this.appId}/comments`, this.buildHeaders('post', { item_id: itemId, username, comment }));
-    this.sendRequest('postComment', [promise], itemId);
+  postComment = (submission) => {
+    const parameters = {
+      item_id: submission.itemId, username: submission.username, comment: submission.comment,
+    };
+    const promise = this.buildRequest(`${this.involvement}${this.appId}/comments`, this.buildHeaders('post', parameters));
+    this.sendRequest('postComment', [promise], submission.itemId);
   }
 
   updateComments = (itemId) => {
@@ -94,9 +97,15 @@ export default class {
     this.sendRequest('getReservations', [this.promiseItem(itemId), promise]);
   }
 
-  postReservation = ({ itemId, username, comment }) => {
-    const promise = this.buildRequest(`${this.involvement}${this.appId}/reservations`, this.buildHeaders('post', { item_id: itemId, username, comment }));
-    this.sendRequest('postReservation', [promise], itemId);
+  postReservation = (submission) => {
+    const parameters = {
+      item_id: submission.itemId,
+      username: submission.username,
+      date_start: submission.dateStart,
+      date_end: submission.dateEnd,
+    };
+    const promise = this.buildRequest(`${this.involvement}${this.appId}/reservations`, this.buildHeaders('post', parameters));
+    this.sendRequest('postReservation', [promise], submission.itemId);
   }
 
   updateReservations = (itemId) => {
