@@ -2,16 +2,22 @@ import Dom from './dom.js';
 
 /* eslint-disable no-unused-vars */
 class Popup {
-  constructor(targetType, data) {
+  constructor(network) {
     this.dom = new Dom();
+    this.network = network;
+  }
+
+
+  countInvolvementElements() {
+    return this.dom.popupList.childElementCount();
   }
 
   renderDetails(data) {
     this.dom.popupImage.src = data.itemDetails.strMealThumb;
     this.dom.popupTitle.textContent = data.itemDetails.strMeal;
     this.dom.popupDescription.textContent = data.itemDetails.strInstructions;
-    this.dom.popupListTitle.textContent = (data.targetType === 'COMMENT') ? 'Comments' : 'Reservations';
-    this.dom.popupFormTitle.textContent = (data.targetType === 'COMMENT') ? 'Add Comment' : 'Add Reservation';
+    this.dom.popupListTitle.textContent = (data.targetType === 'comments') ? `Comments ('${this.countInvolvementElements()}')` : `Reservations ('${this.countInvolvementElements()}')`;
+    this.dom.popupFormTitle.textContent = (data.targetType === 'comments') ? 'Add Comment' : 'Add Reservation';
   }
 
   renderInvolvement(data) {
@@ -40,45 +46,45 @@ class Popup {
     }
   }
 
+  handleFormSubmission(targetType, itemId) {
+    const formName = (targetType === 'comments') ? 'popup-form-comment' : 'popup-form-reservation';
+    formElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (this.checkFilledForm(formName)) {
+        if (formName === 'popup-form-comment') {
+          const commentObject = {
+            item_id: itemId,
+            username: this.dom.popupFormComment.elements.username.value,
+            comment: this.dom.popupFormComment.elements.comment.value,
+          };
+          //* ** call here postData method to post comment through API ***
+        } else if (formName === 'popup-form-reservation'){
+          const reservationObject = {
+            item_id: itemId,
+            username: this.dom.popupFormReservation.elements.username.value,
+            date_start: this.dom.popupFormReservation.elements.date_start.value,
+            date_end: this.dom.popupFormReservation.elements.date_end.value,
+          };
+          //* ** call here postData method to post reservation through API ***
+        }
+      } else {
+        // please fill all fields message
+      }
+    });
+  }
+
   renderPopup(data) {
     if (data) {
       this.dom.popup.classList.toggle('active'); // active : when popup is visible
-      if (data.targetType === 'COMMENT' || data.targetType === 'RESERVATION') {
+      if (data.targetType === 'comments' || data.targetType === 'reservations') {
+
         this.renderInvolvement(data);
         this.manageFormVisibility(data.targetType);
-        if (data.targetType === 'COMMENT') {
-          this.dom.popupFormComment.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (this.checkFilledForm('popup-form-comment')) {
-              const commentObject = {
-                item_id: data.itemDetails.item_id,
-                username: this.dom.popupFormComment.elements.username.value,
-                comment: this.dom.popupFormComment.elements.comment.value,
-                //* ** call here postData method to post comment through API ***
-              };
-            } else {
-              // please fill all fields message
-            }
-          });
-        } else {
-          this.dom.popupFormReservation.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (this.checkFilledForm('popup-form-reservation')) {
-              const reservationObject = {
-                item_id: data.itemDetails.item_id,
-                username: this.dom.popupFormReservation.elements.username.value,
-                date_start: this.dom.popupFormReservation.elements.date_start.value,
-                date_end: this.dom.popupFormReservation.elements.date_end.value,
-              };
-              //* ** call here postData method to post reservation through API ***
-            } else {
-              // please fill all fields message
-            }
-          });
-        }
+        this.handleFormSubmission(data.targetType, data.itemDetails.item_id);
         this.dom.popupClose.addEventListener('click', () => {
           this.clearPopup(data.targetType);
         });
+        
       } else {
         throw new Error('Invalid target type name');
       }
@@ -97,9 +103,9 @@ class Popup {
       this.dom.popupFormTitle.textContent = '';
       this.dom.popup.classList.toggle('active');
 
-      if (targetType === 'COMMENT') {
+      if (targetType === 'comments') {
         this.dom.popupFormComment[0].reset();
-      } else if (targetType === 'RESERVATION') {
+      } else if (targetType === 'reservations') {
         this.dom.popupFormReservation[0].reset();
       } else {
         throw new Error('Invalid target type name');
