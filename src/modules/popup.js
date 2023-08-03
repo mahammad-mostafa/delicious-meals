@@ -1,7 +1,7 @@
 import Dom from './dom.js';
 
 /* eslint-disable no-unused-vars */
-class Popup {
+export default class Popup {
   constructor(network) {
     this.dom = new Dom();
     this.network = network;
@@ -49,7 +49,7 @@ class Popup {
     const formElement = (targetType === 'comments') ? this.dom.popupFormComment : this.dom.popupFormReservation;
     formElement.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (this.checkFilledForm(formName)) {
+      if (this.checkFilledForm(formElement)) {
         if (formName === 'popup-form-comment') {
           const commentObject = {
             item_id: itemId,
@@ -113,14 +113,14 @@ class Popup {
 
   /* eslint-disable no-undef */
   /* eslint-disable class-methods-use-this */
-  checkFilledForm(formName) {
-    const inputs = document.forms[formName].querySelectorAll('.form-field');
+  /* eslint-disable no-restricted-syntax */
+  checkFilledForm(formElement) {
     let isFilled = true;
-    inputs.forEach(element, () => {
+    for (element of formElement.elements) {
       if (element.value === '') {
         isFilled = false;
       }
-    });
+    }
     return isFilled;
   }
 }
