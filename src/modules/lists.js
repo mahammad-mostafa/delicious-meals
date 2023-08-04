@@ -27,10 +27,10 @@ export default class {
       element.id = `item${item.idMeal}`;
       let html = `<img class="list-image" src="${item.strMealThumb}" alt="${item.strMeal}" />`;
       html += `<h2 class="list-title">${item.strMeal}</h2>`;
-      html += `<span class="list-likes">${this.countLikes(item.idMeal)} likes</span>`;
-      html += '<button data-type="likes" type="button">likes</button>';
-      html += '<button data-type="comments" type="button">comments</button>';
-      html += '<button data-type="reservations" type="button">reservations</button>';
+      html += `<span class="list-likes">${this.countLikes(item.idMeal)}<span class="icon-likes"></span></span>`;
+      html += '<button class="list-buttons icon-like" data-type="likes" type="button"></button>';
+      html += '<button class="list-buttons icon-comment" data-type="comments" type="button"></button>';
+      html += '<button class="list-buttons icon-reservation" data-type="reservations" type="button"></button>';
       element.innerHTML = html;
       fragment.appendChild(element);
     });
@@ -61,6 +61,6 @@ export default class {
   }
 
   updateLikes = (itemId) => {
-    document.querySelector(`#item${itemId} span`).textContent = `${this.countLikes(itemId) + 1} likes`;
+    document.querySelector(`#item${itemId} span`).innerHTML = `${this.countLikes(itemId) + 1}<span class="icon-likes"></span>`;
   }
 }
