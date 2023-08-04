@@ -1,6 +1,6 @@
 import counter from '../modules/counter';
 
-describe('Count the item list from reervations', () => {
+describe('Count the item list from reservations', () => {
   it('should return 1 list item', () => {
     const testDom = `
     <li><b>Felipe</b><br/>from 8/4/2023 to 9/4/2023</li>
