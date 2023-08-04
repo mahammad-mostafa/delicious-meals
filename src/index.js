@@ -5,8 +5,9 @@ import './index.css';
 const menuElement = document.querySelector('#menu');
 const toggleElement = document.querySelector('.icon-menu');
 const listElement = document.querySelector('#list-block');
+const loaderElement = document.querySelector('#loader');
 
-const network = new Network(menuElement, listElement);
+const network = new Network(loaderElement, menuElement, listElement);
 
 const toggleEvent = () => menuElement.classList.toggle('menu-visible');
 
@@ -14,6 +15,10 @@ const menuEvent = (event) => {
   event.preventDefault();
   const menuHash = event.target.hash;
   if (menuHash !== undefined && ['#seafood', '#pasta', '#vegan'].includes(menuHash)) {
+    for (let i = 0; i < menuElement.childElementCount; i += 1) {
+      menuElement.childNodes[i].classList.remove('menu-active');
+    }
+    event.target.classList.add('menu-active');
     network.getList(menuHash.replace('#', ''));
   }
   if (menuElement.classList.contains('menu-visible')) {
@@ -36,4 +41,4 @@ const listEvent = (event) => {
 menuElement.addEventListener('click', menuEvent);
 toggleElement.addEventListener('click', toggleEvent);
 listElement.addEventListener('click', listEvent);
-network.getList('seafood');
+menuElement.firstElementChild.click();

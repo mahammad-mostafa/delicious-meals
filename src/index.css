@@ -19,7 +19,7 @@
 body {
   padding: 70px 0 60px;
   color: var(--text-color);
-  font: 14px var(--text-font);
+  font: 400 14px var(--text-font);
   background-color: var(--primary-color);
 }
 
@@ -61,7 +61,8 @@ a {
 }
 
 #logo {
-  font: 1.5rem/3rem var(--text-font);
+  color: var(--dark-color);
+  font: 900 1.5rem/3rem var(--text-font);
 }
 
 .icon-logo {
@@ -82,7 +83,9 @@ a {
 
 #menu a {
   padding: 10px 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--secondary-color);
   border-top: solid 1px var(--border-color);
 }
 
@@ -94,13 +97,23 @@ a {
 
 #list-block li {
   padding: 10px;
+  overflow: hidden;
   background-color: var(--light-color);
   border-radius: 5px;
 }
 
 .list-image {
   width: 100%;
+  background: url(./blank.jpg) transparent no-repeat center/cover;
   border-radius: 5px;
+  aspect-ratio: 1 / 1;
+}
+
+.list-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 10px 0;
 }
 
 .list-title,
@@ -108,15 +121,16 @@ a {
 #popup-list-title,
 #popup-form-title {
   color: var(--dark-color);
-  font: 1.25rem var(--text-font);
+  font: 700 1.25rem var(--text-font);
 }
 
 .list-likes {
-  width: 100px;
+  width: 80px;
   text-align: center;
   display: block;
-  padding: 10px;
+  padding: 5px;
   font-weight: 900;
+  font-size: 1.25rem;
   color: var(--light-color);
   background-color: red;
   border-radius: 5px;
@@ -124,6 +138,7 @@ a {
 }
 
 .icon-likes {
+  font-size: 1rem;
   margin-inline-start: 10px;
 }
 
@@ -136,13 +151,14 @@ a {
   margin-inline-end: 5px;
 }
 
-#popup {
+#popup,
+#loader {
   display: none;
   position: fixed;
   top: 0;
   bottom: 0;
   z-index: 99;
-  overflow: scroll;
+  overflow: auto;
   inset-inline: 0;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -156,6 +172,8 @@ a {
   background-color: #fff;
   border-radius: 5px;
   margin: auto;
+  clip-path: circle(0);
+  transition: all 0.5s ease-in-out;
 }
 
 #popup-close {
@@ -164,7 +182,9 @@ a {
 }
 
 #popup-image {
+  background: url(./blank.jpg) transparent no-repeat center/cover;
   border-radius: 5px;
+  aspect-ratio: 1 / 1;
 }
 
 #popup-list-title,
@@ -194,7 +214,7 @@ a {
 
 .popup-form input,
 .popup-form textarea {
-  padding: 5px;
+  padding: 8px;
   font: 1rem var(--text-font);
   border: solid 1px var(--border-color);
   border-radius: 5px;
@@ -203,12 +223,37 @@ a {
 
 .popup-form button {
   height: 40px;
-  font: 1rem var(--text-font);
+  font: 700 1rem var(--text-font);
   background-color: var(--secondary-color);
   border-radius: 5px;
 }
 
-.menu-visible {
+#loader {
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-loader {
+  font-size: 10vw;
+  color: var(--light-color);
+  animation: rotation 1s linear infinite;
+}
+
+.container {
+  padding: 0 10px;
+}
+
+.body-scroll {
+  overflow: hidden;
+}
+
+.menu-active {
+  color: var(--dark-color) !important;
+}
+
+.menu-visible,
+.loader-visible {
   display: flex !important;
 }
 
@@ -216,12 +261,12 @@ a {
   display: block !important;
 }
 
-.form-visible {
-  display: flex;
+.popup-clip {
+  clip-path: circle(100%) !important;
 }
 
-.container {
-  padding: 0 10px;
+.form-visible {
+  display: flex;
 }
 
 @media only screen and (min-width: 768px) {
@@ -261,10 +306,15 @@ a {
   }
 
   #menu a:hover {
-    font-weight: bolder;
+    color: var(--dark-color);
   }
 
   .list-buttons:hover {
     background-color: var(--secondary-color);
   }
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
 }

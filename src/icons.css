@@ -47,3 +47,7 @@
 .icon-menu::before {
   content: "\e906";
 }
+
+.icon-loader::before {
+  content: "\e907";
+}

@@ -2,12 +2,13 @@ import List from './lists.js';
 import Popup from './popup.js';
 
 export default class {
-  constructor(menuElement, listElement) {
+  constructor(loaderElement, menuElement, listElement) {
     this.meals = 'https://themealdb.com/api/json/v1/1/';
     this.involvement = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
     this.appId = 'TsDEimEFOpq0pmfWUpLw';
     this.list = new List(menuElement, listElement);
     this.popup = new Popup(this);
+    this.loader = loaderElement;
   }
 
   buildHeaders = (method, body) => ({ method, body: JSON.stringify(body), headers: { 'content-type': 'application/json' } });
@@ -25,8 +26,10 @@ export default class {
   }
 
   sendRequest = async (action, promises, item = null) => {
+    this.loader.classList.add('loader-visible');
     const responses = await Promise.all(promises);
     this.handleResponse(action, responses, item);
+    this.loader.classList.remove('loader-visible');
   }
 
   handleResponse = (action, responses, item) => {
