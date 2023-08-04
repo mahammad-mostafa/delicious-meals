@@ -5,7 +5,7 @@ export default class {
   constructor(menuElement, listElement) {
     this.meals = 'https://themealdb.com/api/json/v1/1/';
     this.involvement = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
-    this.appId = '7f1BuLlilpO9a0A6DJ97';
+    this.appId = 'TsDEimEFOpq0pmfWUpLw';
     this.list = new List(menuElement, listElement);
     this.popup = new Popup(this);
   }
@@ -14,6 +14,9 @@ export default class {
 
   buildRequest = async (url, options = {}) => {
     const response = await fetch(url, options);
+    if (response.status > 299) {
+      return [];
+    }
     const result = await response.text();
     if (result.length > 0 && Object.keys(options).length === 0) {
       return JSON.parse(result);
@@ -53,7 +56,7 @@ export default class {
       case 'postReservation':
         this.updateReservations(item);
         break;
-      case 'updateReservation':
+      case 'updateReservations':
         this.popup.renderInvolvement({ targetType: 'reservations', involvementList: responses[0] });
         break;
       default:
