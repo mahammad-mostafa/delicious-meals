@@ -3,7 +3,6 @@ import Reservations from './reservations.js';
 import Comments from './comments.js';
 import counter from './counter.js';
 
-/* eslint-disable no-unused-vars */
 export default class Popup {
   constructor(network) {
     this.dom = new Dom();
@@ -13,13 +12,13 @@ export default class Popup {
     this.dom.popupClose.addEventListener('click', this.clearPopup);
   }
 
-  renderDetails = ({strMealThumb, strMeal, strInstructions}) => {
+  renderDetails = ({ strMealThumb, strMeal, strInstructions }) => {
     this.dom.popupImage.src = strMealThumb;
     this.dom.popupTitle.textContent = strMeal;
     this.dom.popupDescription.textContent = strInstructions;
   }
 
-  renderInvolvement = ({targetType, involvementList}) => {
+  renderInvolvement = ({ targetType, involvementList }) => {
     let listItem = '';
     this.dom.popupList.textContent = ''; // clear all content before rendering
     if (targetType === 'comments') {
@@ -44,16 +43,16 @@ export default class Popup {
       this.dom.popupFormReservation.item_id.value = itemId;
       this.dom.popupFormReservation.classList.add('form-visible'); // form-visible : reservation_form is displayed
     }
-    
+
     this.dom.popupFormTitle.textContent = (targetType === 'comments') ? 'Add Comment' : 'Add Reservation';
   }
 
-  renderPopup = ({targetType, itemDetails, involvementList}) => {
+  renderPopup = ({ targetType, itemDetails, involvementList }) => {
     this.targetType = targetType;
     this.dom.popup.classList.toggle('popup-visible'); // popup-visible : when popup is visible
     if (targetType === 'comments' || targetType === 'reservations') {
       this.renderDetails(itemDetails.meals[0]);
-      this.renderInvolvement({targetType, involvementList});
+      this.renderInvolvement({ targetType, involvementList });
       this.manageFormVisibility(targetType, itemDetails.meals[0].idMeal);
     } else {
       throw new Error('Invalid target type name');
@@ -76,7 +75,7 @@ export default class Popup {
         this.dom.popupFormComment.item_id.value = itemId;
         this.dom.popupFormComment.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
       } else if (this.targetType === 'reservations') {
-        const itemId = this.dom.popupFormReservation.item_id.value
+        const itemId = this.dom.popupFormReservation.item_id.value;
         this.dom.popupFormReservation.reset();
         this.dom.popupFormReservation.item_id.value = itemId;
         this.dom.popupFormReservation.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
@@ -86,16 +85,14 @@ export default class Popup {
     }
   }
 
-  /* eslint-disable no-undef */
-  /* eslint-disable class-methods-use-this */
-  /* eslint-disable no-restricted-syntax */
   checkFilledForm = (formElement) => {
     let isFilled = true;
-    for (let element of formElement.elements) {
-      if (element.value === '' && element.tagName !== 'BUTTON') {
+    const inputArray = Array.from(formElement.elements);
+    inputArray.forEach((input) => {
+      if (input.value === '' && input.tagName !== 'BUTTON') {
         isFilled = false;
       }
-    }
+    });
     return isFilled;
   }
 
@@ -106,7 +103,7 @@ export default class Popup {
         this.dom.popupFormComment.item_id.value,
         this.dom.popupFormComment.username.value,
         this.dom.popupFormComment.comment.value,
-      )
+      );
       this.network.postComment(comment);
       this.dom.popupFormComment.reset();
     }
@@ -120,7 +117,7 @@ export default class Popup {
         this.dom.popupFormReservation.username.value,
         this.dom.popupFormReservation.date_start.value,
         this.dom.popupFormReservation.date_end.value,
-      )
+      );
       this.network.postReservation(reservation);
       this.dom.popupFormReservation.reset();
     }

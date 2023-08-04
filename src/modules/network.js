@@ -20,7 +20,7 @@ export default class {
     const result = await response.text();
     if (result.length > 0 && Object.keys(options).length === 0) {
       return JSON.parse(result);
-    } 
+    }
     return result;
   }
 
