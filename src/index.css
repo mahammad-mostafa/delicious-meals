@@ -235,8 +235,8 @@ a {
 }
 
 .icon-loader {
-  color: #000;
   font-size: 10vw;
+  color: var(--light-color);
   animation: rotation 1s linear infinite;
 }
 
