@@ -41,5 +41,8 @@
   },
   "jest": {
     "testEnvironment": "jsdom"
+  },
+  "dependencies": {
+    "@jest/globals": "^29.6.2"
   }
 }
