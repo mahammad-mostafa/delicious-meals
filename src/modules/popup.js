@@ -23,11 +23,11 @@ export default class Popup {
     this.dom.popupList.textContent = ''; // clear all content before rendering
     if (targetType === 'comments') {
       involvementList.forEach((comment) => {
-        listItem += `<li>${comment.creation_date} ${comment.username}: ${comment.comment}</li>`;
+        listItem += `<li><b>${comment.username}:</b><br/>${comment.comment}<br/><i>${comment.creation_date}</i></li>`;
       });
     } else {
       involvementList.forEach((reservation) => {
-        listItem += `<li>${reservation.date_start} - ${reservation.date_end} by ${reservation.username}</li>`;
+        listItem += `<li><b>${reservation.username}</b><br/>from ${reservation.date_start} to ${reservation.date_end}</li>`;
       });
     }
     this.dom.popupList.innerHTML = listItem;
