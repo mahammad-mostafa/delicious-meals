@@ -1,26 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #eee;
+  --secondary-color: #aaa;
+  --light-color: #fff;
+  --dark-color: #000;
+  --border-color: #ccc;
+  --text-font: 'Roboto', 'serif';
+  --text-color: #555;
+}
+
 body {
-  padding: 10px;
+  padding: 70px 0 60px;
+  color: var(--text-color);
+  font: 14px var(--text-font);
+  background-color: var(--primary-color);
+}
+
+header,
+footer {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  background-color: var(--light-color);
+  border-bottom: solid 1px var(--border-color);
+}
+
+footer {
+  top: auto;
+  bottom: 0;
+  padding: 10px 0;
+  border-top: solid 1px var(--border-color);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 ul {
   list-style: none;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#logo {
+  font: 1.5rem/3rem var(--text-font);
+}
+
+.icon-logo {
+  font-size: 1.75rem;
+  margin-inline-end: 10px;
+}
+
+.icon-menu {
+  font-size: 1.5rem;
 }
 
 #menu {
-  display: flex;
-  gap: 20px;
+  display: none;
+  width: 100%;
+  flex-direction: column;
   text-transform: capitalize;
+}
+
+#menu a {
+  padding: 10px 0;
+  font-size: 1.25rem;
+  border-top: solid 1px var(--border-color);
 }
 
 #list-block {
@@ -29,8 +92,48 @@ nav {
   grid-template-columns: 1fr;
 }
 
+#list-block li {
+  padding: 10px;
+  background-color: var(--light-color);
+  border-radius: 5px;
+}
+
 .list-image {
   width: 100%;
+  border-radius: 5px;
+}
+
+.list-title,
+#popup-title,
+#popup-list-title,
+#popup-form-title {
+  color: var(--dark-color);
+  font: 1.25rem var(--text-font);
+}
+
+.list-likes {
+  width: 100px;
+  text-align: center;
+  display: block;
+  padding: 10px;
+  font-weight: 900;
+  color: var(--light-color);
+  background-color: red;
+  border-radius: 5px;
+  margin: 5px 0 10px;
+}
+
+.icon-likes {
+  margin-inline-start: 10px;
+}
+
+.list-buttons {
+  padding: 5px 18px;
+  font-size: 1.5rem;
+  background-color: var(--primary-color);
+  border: solid 1px var(--secondary-color);
+  border-radius: 5px;
+  margin-inline-end: 5px;
 }
 
 #popup {
@@ -38,27 +141,75 @@ nav {
   position: fixed;
   top: 0;
   bottom: 0;
+  z-index: 99;
+  overflow: scroll;
   inset-inline: 0;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 #popup-block {
   display: flex;
+  gap: 10px;
   flex-direction: column;
   padding: 10px;
   background-color: #fff;
+  border-radius: 5px;
   margin: auto;
 }
 
 #popup-close {
   align-self: flex-end;
+  font-size: 2rem;
+}
+
+#popup-image {
+  border-radius: 5px;
+}
+
+#popup-list-title,
+#popup-form-title {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#popup-list {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+#popup-list li {
+  padding: 5px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
 }
 
 .popup-form {
   display: none;
   gap: 10px;
   flex-direction: column;
+}
+
+.popup-form input,
+.popup-form textarea {
+  padding: 5px;
+  font: 1rem var(--text-font);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  resize: none;
+}
+
+.popup-form button {
+  height: 40px;
+  font: 1rem var(--text-font);
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+}
+
+.menu-visible {
+  display: flex !important;
 }
 
 .popup-visible {
@@ -69,10 +220,31 @@ nav {
   display: flex;
 }
 
+.container {
+  padding: 0 10px;
+}
+
 @media only screen and (min-width: 768px) {
-  body {
-    max-width: 1200px;
-    margin: auto;
+  nav {
+    height: 50px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .icon-menu {
+    display: none;
+  }
+
+  #menu {
+    width: auto;
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+  }
+
+  #menu a {
+    border: 0;
   }
 
   #list-block {
@@ -81,5 +253,18 @@ nav {
 
   #popup-block {
     max-width: 500px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  #menu a:hover {
+    font-weight: bolder;
+  }
+
+  .list-buttons:hover {
+    background-color: var(--secondary-color);
   }
 }
