@@ -9,19 +9,20 @@
 
   <body>
     <header>
-      <nav>
-        <h1 id="logo">Delicious Meals</h1>
+      <nav class="container">
+        <h1 id="logo"><span class="icon-logo"></span>Delicious Meals</h1>
+        <button class="icon-menu" type="button"></button>
         <ul id="menu"></ul>
       </nav>
     </header>
 
-    <main>
+    <main class="container">
       <section id="list">
         <ul id="list-block"></ul>
       </section>
       <section id="popup">
         <div id="popup-block">
-          <button id="popup-close" type="button">X</button>
+          <button id="popup-close" class="icon-close" type="button"></button>
           <img id="popup-image" alt="image" />
           <h2 id="popup-title"></h2>
           <p id="popup-description"></p>
@@ -46,7 +47,7 @@
     </main>
 
     <footer>
-      <p>Created by Microverse under CC license</p>
+      <p class="container">Created by Microverse under CC license</p>
     </footer>
   </body>
 
