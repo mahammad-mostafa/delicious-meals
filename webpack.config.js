@@ -11,7 +11,7 @@ module.exports = {
     assetModuleFilename: '[name][ext]',
   },
   module: {
-    rules: [{ test: /\.css$/i, use: ['style-loader', 'css-loader'] }, { test: /\.ttf$/i, type: 'asset/resource' }],
+    rules: [{ test: /\.css$/i, use: ['style-loader', 'css-loader'] }, { test: /\.jpg$/i, type: 'asset/resource' }, { test: /\.ttf$/i, type: 'asset/resource' }],
   },
   plugins: [new Html({ template: './src/index.html' })],
 };
