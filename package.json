@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mahammad-mostafa/delicious-meals-app/dist",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.8.1",
     "eslint": "^7.32.0",
