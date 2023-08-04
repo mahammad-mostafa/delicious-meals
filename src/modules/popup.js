@@ -13,6 +13,7 @@ export default class Popup {
   }
 
   renderDetails = ({ strMealThumb, strMeal, strInstructions }) => {
+    this.dom.popupImage.alt = strMeal;
     this.dom.popupImage.src = strMealThumb;
     this.dom.popupTitle.textContent = strMeal;
     this.dom.popupDescription.textContent = strInstructions;
@@ -49,7 +50,9 @@ export default class Popup {
 
   renderPopup = ({ targetType, itemDetails, involvementList }) => {
     this.targetType = targetType;
-    this.dom.popup.classList.toggle('popup-visible'); // popup-visible : when popup is visible
+    document.body.classList.add('body-scroll');
+    this.dom.popup.classList.add('popup-visible'); // popup-visible : when popup is visible
+    setTimeout(() => this.dom.popupBlock.classList.add('popup-clip'), 100);
     if (targetType === 'comments' || targetType === 'reservations') {
       this.renderDetails(itemDetails.meals[0]);
       this.renderInvolvement({ targetType, involvementList });
@@ -61,27 +64,31 @@ export default class Popup {
 
   clearPopup = () => {
     if (this.targetType !== '') {
-      this.dom.popupImage.src = '';
-      this.dom.popupTitle.textContent = '';
-      this.dom.popupListTitle.textContent = '';
-      this.dom.popupDescription.textContent = '';
-      this.dom.popupList.textContent = '';
-      this.dom.popupFormTitle.textContent = '';
-      this.dom.popup.classList.remove('popup-visible');
-
-      if (this.targetType === 'comments') {
-        const itemId = this.dom.popupFormComment.item_id.value;
-        this.dom.popupFormComment.reset();
-        this.dom.popupFormComment.item_id.value = itemId;
-        this.dom.popupFormComment.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
-      } else if (this.targetType === 'reservations') {
-        const itemId = this.dom.popupFormReservation.item_id.value;
-        this.dom.popupFormReservation.reset();
-        this.dom.popupFormReservation.item_id.value = itemId;
-        this.dom.popupFormReservation.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
-      } else {
-        throw new Error('Invalid target type name');
-      }
+      this.dom.popupBlock.classList.remove('popup-clip');
+      setTimeout(() => {
+        this.dom.popupImage.src = '';
+        this.dom.popupImage.alt = '';
+        this.dom.popupTitle.textContent = '';
+        this.dom.popupListTitle.textContent = '';
+        this.dom.popupDescription.textContent = '';
+        this.dom.popupList.textContent = '';
+        this.dom.popupFormTitle.textContent = '';
+        this.dom.popup.classList.remove('popup-visible');
+        document.body.classList.remove('body-scroll');
+        if (this.targetType === 'comments') {
+          const itemId = this.dom.popupFormComment.item_id.value;
+          this.dom.popupFormComment.reset();
+          this.dom.popupFormComment.item_id.value = itemId;
+          this.dom.popupFormComment.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
+        } else if (this.targetType === 'reservations') {
+          const itemId = this.dom.popupFormReservation.item_id.value;
+          this.dom.popupFormReservation.reset();
+          this.dom.popupFormReservation.item_id.value = itemId;
+          this.dom.popupFormReservation.classList.remove('form-visible'); // remove form-visible : popup-form-comment is hidden
+        } else {
+          throw new Error('Invalid target type name');
+        }
+      }, 500);
     }
   }
 

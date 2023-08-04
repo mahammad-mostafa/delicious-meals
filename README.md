@@ -49,8 +49,8 @@ Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder
 - Responsive layout with all screen sizes
 - Meal recipes data is fetched from TheMealDB api
 - Interaction data is fetched from involvement api
-- Each items displays (thumbnail image / recipe title / total likes)
-- Two button available (comments / reservations)
+- Each item displays (thumbnail image / recipe title / total likes)
+- Two buttons available (comments / reservations)
 - Comment button opens a popup to display item details and comments
 - New comments are displyed automatically with name & date
 - Reservation button opens a popup to display item details and reservations
