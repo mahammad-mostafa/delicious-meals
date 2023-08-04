@@ -1,1 +1,6 @@
-export default (popupList) => popupList.childElementCount;
+export default counter = (popupList) => {
+    if (popupList === null || popupList === undefined) {
+        return 0;
+    }
+    return popupList.childElementCount;
+};
