@@ -4,7 +4,7 @@
 
 # 🏷️ Delicious Meals App
 
-This is the capstone project in the second module of the **Microverse** program.
+This is the capstone project of the second module in the **Microverse** program.
 <br/>
 Check the below contents for further details about this project.
 
@@ -30,8 +30,8 @@ Check the below contents for further details about this project.
 This project is a simple meal recipes app with `ES6` modules and bundled with `WebPack`.
 It consumes data from two external `API`s and follows `GitFlow` workflow.
 Data is loaded with asynchronous calls using `async` functions & `promises`.
-Unit testing is applied during this project using `Jest` framweork.
-All project files are contained in `src` directory.
+Unit testing is applied during this project using `Jest` framework.
+All project files are contained in `src` directory & and live build in `dist` directory.
 Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder.
 
 📌 **Live Demo:**
@@ -53,9 +53,9 @@ Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder
 - Each item displays (thumbnail image / recipe title / total likes)
 - Two buttons available (comments / reservations)
 - Comment button opens a popup to display item details and comments
-- New comments are displyed automatically with name & date
+- New comments are displayed automatically with name & date
 - Reservation button opens a popup to display item details and reservations
-- New reservations are displyed automatically with name & date
+- New reservations are displayed automatically with name & date
  
 <p align="right"><a href="#title">back to top</a></p>
 
