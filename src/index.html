@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delicious Meals</title>
+  </head>
+
+  <body>
+    <header>
+      <nav class="container">
+        <h1 id="logo"><span class="icon-logo"></span>Delicious Meals</h1>
+        <button class="icon-menu" type="button"></button>
+        <ul id="menu"></ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section id="list">
+        <ul id="list-block"></ul>
+      </section>
+      <section id="popup">
+        <div id="popup-block">
+          <button id="popup-close" class="icon-close" type="button"></button>
+          <img id="popup-image" alt="" />
+          <h2 id="popup-title"></h2>
+          <p id="popup-description"></p>
+          <h3 id="popup-list-title"></h3>
+          <ul id="popup-list"></ul>
+          <h3 id="popup-form-title"></h3>
+          <form id="popup-form-comment" class="popup-form">
+            <input type="hidden" name="item_id" />
+            <input type="text" name="username" placeholder="your name" required />
+            <textarea name="comment" placeholder="your insights" required></textarea>
+            <button type="submit">Comment</button>
+          </form>
+          <form id="popup-form-reservation" class="popup-form">
+            <input type="hidden" name="item_id" />
+            <input type="text" name="username" placeholder="your name" required />
+            <input type="date" name="date_start" placeholder="start date" required />
+            <input type="date" name="date_end" placeholder="end date" required />
+            <button type="submit">Reserve</button>
+          </form>
+        </div>
+      </section>
+      <section id="loader">
+        <span class="icon-loader"></span>
+      </section>
+    </main>
+
+    <footer>
+      <p class="container">Created by Microverse under CC license</p>
+    </footer>
+  </body>
+
+</html>
