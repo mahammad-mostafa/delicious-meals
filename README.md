@@ -36,6 +36,7 @@ Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder
 
 📌 **Live Demo:**
 - See the project live from [here](https://mahammad-mostafa.github.io/delicious-meals-app/dist).
+- Check the presentation video from [here](https://drive.google.com/file/d/1iQXqlGEEQ7VRIuIBgGGwm4gcyA74OB6O).
 
 📌 **Tech Stack:**
 - Page strucutre is built with `HTML5`
