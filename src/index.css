@@ -96,10 +96,13 @@ a {
 }
 
 #list-block li {
+  opacity: 0;
   padding: 10px;
   overflow: hidden;
   background-color: var(--light-color);
   border-radius: 5px;
+  transform: rotateY(90deg);
+  transition: all 0.5s ease-in-out;
 }
 
 .list-image {
@@ -255,6 +258,11 @@ a {
 .menu-visible,
 .loader-visible {
   display: flex !important;
+}
+
+.list-effect {
+  opacity: 1 !important;
+  transform: rotateY(0) !important;
 }
 
 .popup-visible {
