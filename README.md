@@ -48,6 +48,7 @@ Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder
 📌 **Key Features:**
 - Single page app with all content loaded dynamically
 - Responsive layout with all screen sizes
+- Fixed header & footer elements with scrolling content
 - Meal recipes data is fetched from TheMealDB api
 - Interaction data is fetched from involvement api
 - Each item displays (thumbnail image / recipe title / total likes)
@@ -56,6 +57,8 @@ Also config linters for (`HTML` / `CSS3` / `JavaScript`) in the `.github` folder
 - New comments are displayed automatically with name & date
 - Reservation button opens a popup to display item details and reservations
 - New reservations are displayed automatically with name & date
+- Transition effects while loading both list items & popup window
+- Display an animated loader during all network calls
  
 <p align="right"><a href="#title">back to top</a></p>
 
