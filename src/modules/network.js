@@ -42,7 +42,10 @@ export default class {
         );
         break;
       case 'postLike':
-        this.list.updateLikes(item);
+        this.updateLikes(item);
+        break;
+      case 'updateLikes':
+        this.list.updateLikes(item, responses[0]);
         break;
       case 'getComments':
         this.popup.renderPopup({ targetType: 'comments', itemDetails: responses[0], involvementList: responses[1] });
@@ -78,6 +81,11 @@ export default class {
   postLike = (itemId) => {
     const promise = this.buildRequest(`${this.involvement}${this.appId}/likes`, this.buildHeaders('post', { item_id: itemId }));
     this.sendRequest('postLike', [promise], itemId);
+  }
+
+  updateLikes = (itemId) => {
+    const promise = this.buildRequest(`${this.involvement}${this.appId}/likes`);
+    this.sendRequest('updateLikes', [promise], itemId);
   }
 
   getComments = (itemId) => {
