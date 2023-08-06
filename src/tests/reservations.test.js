@@ -1,4 +1,4 @@
-import counter from '../modules/counter';
+import counter from '../modules/counter.js';
 
 describe('Count the item list from reservations', () => {
   it('should return 1 list item', () => {
