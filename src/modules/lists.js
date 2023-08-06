@@ -37,6 +37,7 @@ export default class {
     this.list.innerHTML = '';
     this.list.appendChild(fragment);
     this.displayCounter(category, Counter(this.list));
+    this.animateItems();
   }
 
   displayCounter = (selected, count) => {
@@ -63,5 +64,12 @@ export default class {
   updateLikes = (itemId, totalLikes) => {
     this.likes = totalLikes;
     document.querySelector(`#item${itemId} span`).innerHTML = `${this.countLikes(itemId)}<span class="icon-likes"></span>`;
+  }
+
+  animateItems = () => {
+    const items = this.list.childNodes;
+    for (let i = 0; i < items.length; i += 1) {
+      setTimeout(() => items[i].classList.add('list-effect'), 100 * i);
+    }
   }
 }
