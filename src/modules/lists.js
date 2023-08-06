@@ -60,7 +60,8 @@ export default class {
     return total.likes;
   }
 
-  updateLikes = (itemId) => {
-    document.querySelector(`#item${itemId} span`).innerHTML = `${this.countLikes(itemId) + 1}<span class="icon-likes"></span>`;
+  updateLikes = (itemId, totalLikes) => {
+    this.likes = totalLikes;
+    document.querySelector(`#item${itemId} span`).innerHTML = `${this.countLikes(itemId)}<span class="icon-likes"></span>`;
   }
 }
