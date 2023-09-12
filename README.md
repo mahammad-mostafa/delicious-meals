@@ -2,7 +2,7 @@
 
 <!-- TITLE -->
 
-# 🏷️ Delicious Meals App
+# 🏷️ Delicious Meals
 
 This is the capstone project of the second module in the **Microverse** program.
 <br/>
